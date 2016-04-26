@@ -183,7 +183,7 @@ class GameTask extends PluginTask {
 									{
 									$theme = $this->plugin->getTheme();
 									$p1->sendMessage(C::YELLOW . C::BOLD . "The game has started!");
-                                                                        $p1->sendPopup(C::YELLOW . C::BOLD . "Theme: " $theme);
+                                                                        $p1->sendPopup(C::YELLOW . C::BOLD . "Theme: " . $theme);
 								         }
 								$config->set($arena . "StartTime", $timeToStart);
 							}
