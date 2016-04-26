@@ -109,11 +109,11 @@ class Particles extends PluginTask {
 				$text = $t->getText();
 				if($text[0]==$prefix)
 				{
-					$x = $t->getX();
-					$y = $t->getY();
-					$z = $t->getX();
+					$x = $t->x;
+					$y = $t->y;
+					$z = $t->z;
 					$level->addParticle(new HeartParticle(new Vector3($x, $y, $z))); 
-					$t->setBlock(new Vector3($x,$y,$z), Block::get(0));
+					$level->setBlock(new Vector3($x,$y,$z), Block::get(0));
 				}
 			}
 		}
