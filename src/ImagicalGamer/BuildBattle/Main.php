@@ -65,10 +65,7 @@ class Main extends PluginBase implements Listener {
 	}
 	public function getArenas(){
 		$config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
-		$arenas = $config->get("arenas");
-		foreach($arenas as $level){
-			//do nothing
-		}
+		$level = $config->get("arenas");
 		return $level;
 	}
 	public function onMove(PlayerMoveEvent $event)
