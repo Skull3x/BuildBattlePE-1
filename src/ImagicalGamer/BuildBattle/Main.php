@@ -289,189 +289,20 @@ class RefreshSigns extends PluginTask {
 	}
 }
 class GameTask extends PluginTask {
+	
     public $prefix = C::YELLOW . C::BOLD . "[BuildBattle] " . C::RESET . C::WHITE;
-	public function __construct($plugin)
-	{
+    
+	public function __construct($plugin){
 		$this->plugin = $plugin;
 		parent::__construct($plugin);
 	}
   
-	public function onRun($tick)
-	{
-		$config = new Config($this->plugin->getDataFolder() . "/config.yml", Config::YAML);
-		$arenas = $config->get("arenas");
-		if(!empty($arenas))
-		{
-			foreach($arenas as $arena)
-			{
-				$time = $config->get($arena . "PlayTime");
-				$timeToStart = $config->get($arena . "StartTime");
-				$levelArena = $this->plugin->getServer()->getLevelByName($arena);
-				if($levelArena instanceof Level)
-				{
-					$playersArena = $levelArena->getPlayers();
-					if(count($playersArena)==0)
-					{
-						$config->set($arena . "PlayTime", 780);
-						$config->set($arena . "StartTime", 60);
-					}
-					else
-					{
-						if(count($playersArena)>=5)
-						{
-							if($timeToStart>0)
-							{
-								$timeToStart--;
-								foreach($playersArena as $pl)
-								{
-									$pl->sendPopup(C::YELLOW . C::BOLD . "Starting in " . $timeToStart . " Seconds");
-								}
-								if($timeToStart == 30 || $timeToStart == 25 || $timeToStart == 15 || $timeToStart == 10 || $timeToStart ==5 || $timeToStart ==4 || $timeToStart ==3 || $timeToStart ==2 || $timeToStart ==1)
-								{
-								        $config->set($arena . "StartTime", $timeToStart);
-							        }
-								if($timeToStart<=0)
-								{
-
-									foreach($playersArena as $pl)
-									{
-									$p1->setNameTagVisible(false);
-                                                                        $pl->sendMessage("§f§l-------------------------------§r");
-                                                                        $pl->sendMessage("§e§lStart Building!");
-                                                                        $pl->sendMessage("§f§l-------------------------------§r");}							}
-								$config->set($arena . "StartTime", $timeToStart);
-							}
-							else
-							{
-								$aop = count($levelArena->getPlayers());
-								if($aop==1)
-								{
-									foreach($playersArena as $pl)
-									{
-										$spawn = $this->plugin->getServer()->getDefaultLevel()->getSafeSpawn();
-										$this->plugin->getServer()->getDefaultLevel()->loadChunk($spawn->getX(), $spawn->getZ());
-										$pl->teleport($spawn,0,0);
-										$p->setNameTagVisible(true);
-										$this->getServer()->unloadLevel($levelArena);
-										$this->getServer()->loadLevel($levelArena);
-									}
-									$config->set($arena . "PlayTime", 780);
-									$config->set($arena . "StartTime", 60);
-								}
-								$time--;
-								if($time>=180)
-								{
-								$time2 = $time - 180;
-								$minutes = $time2 / 60;
-									foreach($playersArena as $pl)
-									{
-										$pl->sendPopup($this->prefix . $time2 . " left in the battle!");
-									}
-								if(is_int($minutes) && $minutes>0)
-								{
-									foreach($playersArena as $pl)
-									{
-										$pl->sendMessage($this->prefix . $minutes . " minutes to voting");
-										$level=$pl->getLevel();
-										$level->addSound(new PopSound($pl));
-									}
-								}
-								else if($time2 == 30 || $time2 == 15 || $time2 == 10 || $time2 ==5 || $time2 ==4 || $time2 ==3 || $time2 ==2 || $time2 ==1)
-								{
-									foreach($playersArena as $pl)
-									{
-										$pl->sendMessage($this->prefix . $time2 . " seconds to voting");
-										$level=$pl->getLevel();
-										$level->addSound(new PopSound($pl));
-									}
-								}
-								if($time2 <= 0)
-								{
-									$spawn = $levelArena->getSafeSpawn();
-									$levelArena->loadChunk($spawn->getX(), $spawn->getZ());
-									foreach($playersArena as $pl)
-									{
-										$pl->teleport($spawn,0,0);
-									}
-								}
-								}
-								else
-								{
-									$minutes = $time / 60;
-									if(is_int($minutes) && $minutes>0)
-									{
-										foreach($playersArena as $pl)
-										{
-											$pl->sendMessage($this->prefix . $minutes . " minutes remaining");
-										}
-									}
-									else if($time == 30 || $time == 15 || $time == 10 || $time ==5 || $time ==4 || $time ==3 || $time ==2 || $time ==1)
-									{
-										foreach($playersArena as $pl)
-										{
-											$pl->sendMessage($this->prefix . $time . " seconds remaining");
-										}
-									}
-									if($time <= 780)
-									{
-									}
-	
-									if($time <= 0)
-									{
-										$spawn = $this->plugin->getServer()->getDefaultLevel()->getSafeSpawn();
-										$this->plugin->getServer()->getDefaultLevel()->loadChunk($spawn->getX(), $spawn->getZ());
-										foreach($playersArena as $pl)
-										{
-											$pl->teleport($spawn,0,0);
-											$pl->sendMessage($this->prefix . "Oh nose you've reached the time limit!");
-											$pl->getInventory()->clearAll();
-											$this->getServer()->unloadLevel($levelArena);
-											$this->getServer()->loadLevel($levelArena);
-											$p1->setNameTagVisible(true);
-										}
-										$time = 780;
-									}
-								}
-								$config->set($arena . "PlayTime", $time);
-							}
-						}
-						else
-						{
-							if($timeToStart<=0)
-							{
-								foreach($playersArena as $pl)
-								{
-								    $name = $pl->getName();
-									$pl->getInventory()->clearAll();
-                                    $pl->sendTip($this->prefix . "You won the battle!");
-									$spawn = $this->plugin->getServer()->getDefaultLevel()->getSafeSpawn();
-									$this->plugin->getServer()->getDefaultLevel()->loadChunk($spawn->getX(), $spawn->getZ());
-									$pl->teleport($spawn,0,0);
-									$p->setNameTagVisible(true);
-									$this->getServer()->unloadLevel($levelArena);
-									$this->getServer()->loadLevel($levelArena);
-								}
-								$config->set($arena . "PlayTime", 780);
-								$config->set($arena . "StartTime", 60);
-							}
-							else
-							{
-								foreach($playersArena as $pl)
-								{
-								$pl->sendPopup(C::RED . C::BOLD . "A battle requires 5 players!");
-								
-								}
-								$config->set($arena . "PlayTime", 780);
-								$config->set($arena . "StartTime", 60);
-							}
-						}
-					}
-				}
-			}
-		}
-		$config->save();
+	public function onRun($tick){
+		
 	}
+	
 }
+	
 class ParticleSigns extends PluginTask {
   
 	public function __construct($plugin)
