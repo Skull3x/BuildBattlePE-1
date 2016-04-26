@@ -10,6 +10,8 @@ use pocketmine\scheduler\PluginTask;
 use pocketmine\Server;
 use pocketmine\Player;
 
+use pocketmine\command\{Command, CommandSender, ConsoleCommandSender};
+
 use pocketmine\utils\TextFormat as C;
 use pocketmine\utils\Config;
 
