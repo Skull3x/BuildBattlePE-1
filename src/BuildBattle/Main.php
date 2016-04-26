@@ -269,7 +269,7 @@ class GameTask extends PluginTask {
 									$this->plugin->getServer()->getDefaultLevel()->loadChunk($spawn->getX(), $spawn->getZ());
 									$pl->teleport($spawn,0,0);
 									foreach($this->plugin->getServer()->getOnlinePlayers() as $p){
-										$p->sendMessage($this->prefix . C::GRAY . $name . " Has won a BuildBattlePE match!");
+									$p->sendMessage($this->prefix . C::GRAY . $name . " Has won a BuildBattlePE match!");
 									}
 								}
 								$config->set($arena . "PlayTime", 780);
