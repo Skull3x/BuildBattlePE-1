@@ -36,9 +36,9 @@ class Main extends PluginBase implements Listener{
     		$config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
 		if($config->get("arenas")!=null)
 		{
-			$this->arenas = $config->get("arenas");
+			$arenas = $config->get("arenas");
 		}
-		foreach($this->arenas as $lev)
+		foreach($arenas as $lev)
 		{
 			$this->getServer()->loadLevel($lev);
 		}
