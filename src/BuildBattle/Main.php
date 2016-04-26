@@ -40,6 +40,10 @@ class Main extends PluginBase implements Listener{
   		$event->setCancelled(true);
   	}
   }
+  public function onChat(PlayerChatEvent $event){
+  	$player = $event->getPlayer();
+  	$event->setRecipients($player->getLevel()->getPlayers());
+  }
   public function onPlace(BlockPlaceEvent $event){
   	if($event->getBlock()->getId() == 10){
   		$event->setCancelled(true);
@@ -148,7 +152,7 @@ class GameTask extends PluginTask {
 					}
 					else
 					{
-						if(count($playersArena)>=6)
+						if(count($playersArena)>=5)
 						{
 							if($timeToStart>0)
 							{
