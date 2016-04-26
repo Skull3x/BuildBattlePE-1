@@ -16,13 +16,19 @@ use pocketmine\utils\Config;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\Listener;
+use pocketmine\event\block\BlockBreakEvent;
+use pocketmine\event\block\BlockPlaceEvent;
 
 class Main extends PluginBase implements Listener{
   public function onEnable(){
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
     $this->getLogger()->info(C::GREEN . "Enabled!");
   }
-  
+  public function onBreak(BlockBreakEvent $event){
+  	if($event->getBlock()->getId() == 5){
+  		$event->setCancelled(true);
+  	}
+  }
   public function onCommand(CommandSender $s, Command $cmd, $label, array $args){
     if(strtolower($cmd->getName() == "bb")){
       if($s instanceof Player){
