@@ -242,6 +242,7 @@ class Main extends PluginBase implements Listener {
 		{
 			$config->set($arena . "PlayTime", 780);
 			$config->set($arena . "StartTime", 60);
+			$config->set($arena . "VoteTime", 120);
 		}
 		$config->save();
 	}
@@ -298,7 +299,46 @@ class GameTask extends PluginTask {
 	}
   
 	public function onRun($tick){
-		
+		$config = new Config($this->getDataFolder()."/config.yml");
+		$arenas = $config->get("arenas");
+		if(!empty($arenas)){
+			foreach($arenas as $arena){
+				$time = $config->get($arena . "PlayTime");
+				$wait = $config->get($arena . "StartTime");
+				$vote = $config->get($arena . "VoteTime");
+				$level = $this->plugin->getServer()->getLevelByName($arena);
+				if($level instanceof Level){
+					$players = $level->getPlayers();
+					if(count($players) == 0){
+						$config->set($arena . "PlayTime", 780);
+						$config->set($arena . "StartTime", 60);
+						$config->get($arena . "VoteTime", 120);
+					}else{
+						if(count($players) > 2){
+							if($wait > 0){
+								
+								$wait--;
+								foreach($players as $p){
+									$p->sendPopup(C::YELLOW . C::BOLD . "Starting in " . $wait . " Seconds");
+									$level = $p->getLevel();
+									$level->addSound(new PopSound($p));
+									$config->set($arena . "StartTime", $wait);
+								}
+								if($wait <= 0){
+									foreach($players as $p){
+										$level = $p->getLevel();
+										$level->addSound(new TNTPrimeSound($p));
+                                                                        	$p->sendMessage("§b-------------------------------§r");
+                                                                        	$p->sendMessage($this->prefix . C::GRAY . "Start" . C::RED . C::BOLD . " Building!");
+                                                                        	$p->sendMessage("§b-------------------------------§r");
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	
 }
