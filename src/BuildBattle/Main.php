@@ -198,7 +198,7 @@ class GameTask extends PluginTask {
 								$minutes = $time2 / 60;
 									foreach($playersArena as $pl)
 									{
-										$pl->sendPopup($this->prefix . $time2 . " left in the game!");
+										$pl->sendPopup(C::YELLOW . C::BOLD . $time2 . " left in the game!");
 									}
 								if($time2 <= 0)
 								{
@@ -217,14 +217,14 @@ class GameTask extends PluginTask {
 									{
 										foreach($playersArena as $pl)
 										{
-											$pl->sendMessage($this->prefix . $minutes . " minutes remaining");
+											$pl->sendMessage(C::YELLOW . C::BOLD . $minutes . " minutes remaining!");
 										}
 									}
 									else if($time == 30 || $time == 15 || $time == 10 || $time ==5 || $time ==4 || $time ==3 || $time ==2 || $time ==1)
 									{
 										foreach($playersArena as $pl)
 										{
-											$pl->sendMessage($this->prefix . $time . " seconds remaining");
+											$pl->sendMessage($time . " seconds remaining");
 										}
 									}
 									if($time <= 780)
