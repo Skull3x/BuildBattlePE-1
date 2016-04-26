@@ -2,8 +2,8 @@
 BuildBattle plugin!
 
 # TODO
-- [ ] GameTask
+- [x] GameTask
 - [ ] Voting  
-- [ ] World Reset
+- [x] World Reset
 - [ ] Winner system
 - [x] Particle System
