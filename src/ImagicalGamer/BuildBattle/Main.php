@@ -490,7 +490,7 @@ class ParticleSigns extends PluginTask {
   
 	public function onRun($tick)
 	{
-		$level = $this->getArenas();
+		$level = $this->plugin->getArenas();
 		$tiles = $level->getTiles();
 		$heart = "[Heart]";
 		foreach($tiles as $t) {
