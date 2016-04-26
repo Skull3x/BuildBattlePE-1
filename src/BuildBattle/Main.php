@@ -32,6 +32,11 @@ class Main extends PluginBase implements Listener{
   		$event->setCancelled(true);
   	}
   }
+  public function onPlace(BlockPlaceEvent $event){
+  	if($event->getBlock()->getId() == 10){
+  		$event->setCancelled(true);
+  	}
+  }
   public function onCommand(CommandSender $s, Command $cmd, $label, array $args){
     if(strtolower($cmd->getName() == "bb")){
       if($s instanceof Player){
