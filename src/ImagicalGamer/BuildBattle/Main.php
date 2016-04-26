@@ -163,7 +163,7 @@ class Main extends PluginBase implements Listener {
 		
 		if($tile instanceof Sign) 
 		{
-			if($this->mode==26)
+			if($this->mode==12)
 			{
 				$tile->setText("§b§l[Join]","§f0 §c/ §f10",$this->currentLevel,$this->prefix);
 				$this->refreshArenas();
@@ -207,19 +207,19 @@ class Main extends PluginBase implements Listener {
 				}
 			}
 		}
-		else if($this->mode>=1&&$this->mode<=24)
+		else if($this->mode>=1&&$this->mode<=10)
 		{
 			$config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
 			$config->set($this->currentLevel . "Spawn" . $this->mode, array($block->getX(),$block->getY()+1,$block->getZ()));
 			$player->sendMessage($this->prefix . "Spawn " . $this->mode . " has been registered!");
 			$this->mode++;
-			if($this->mode==25)
+			if($this->mode==11)
 			{
 				$player->sendMessage($this->prefix . "Now tap on a lobby spawn.");
 			}
 			$config->save();
 		}
-		else if($this->mode==25)
+		else if($this->mode==11)
 		{
 			$config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
 			$level = $this->getServer()->getLevelByName($this->currentLevel);
@@ -230,7 +230,7 @@ class Main extends PluginBase implements Listener {
 			$this->getServer()->getDefaultLevel()->loadChunk($spawn->getFloorX(), $spawn->getFloorZ());
 			$player->teleport($spawn,0,0);
 			$config->save();
-			$this->mode=26;
+			$this->mode=12;
 		}
 	}
 	
