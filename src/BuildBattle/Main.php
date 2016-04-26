@@ -13,6 +13,10 @@ use pocketmine\Player;
 use pocketmine\utils\TextFormat as C;
 use pocketmine\utils\Config;
 
+use pocketmine\math\Vector3;
+
+use pocketmine\level\particle\HeartParticle;
+
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\Listener;
@@ -22,6 +26,7 @@ use pocketmine\event\block\BlockPlaceEvent;
 class Main extends PluginBase implements Listener{
   public function onEnable(){
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
+    $this->getServer()->getScheduler()->scheduleRepeatingTask(new Particles($this), 1);
     $this->getLogger()->info(C::GREEN . "Enabled!");
   }
   public function onBreak(BlockBreakEvent $event){
@@ -84,4 +89,31 @@ class Main extends PluginBase implements Listener{
     }
     return true;
   }
+}
+class Particles extends PluginTask {
+	public function __construct($plugin)
+	{
+		$this->plugin = $plugin;
+		parent::__construct($plugin);
+	}
+  
+	public function onRun($tick)
+	{
+		$level = $this->plugin->getServer()->getLevelByName("BuildBattlePE");
+		$tiles = $level->getTiles();
+		$prefix = "[heart]";
+		foreach($tiles as $t) {
+			if($t instanceof Sign) {	
+				$text = $t->getText();
+				if($text[0]==$prefix)
+				{
+					$x = $t->getX();
+					$y = $t->getY();
+					$z = $t->getX();
+					$level->addParticle(new HeartParticle(new Vector3($x, $y, $z))); 
+					$t->setBlock(new Vector3($x,$y,$z), Block::get(0));
+				}
+			}
+		}
+	}
 }
