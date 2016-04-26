@@ -1,6 +1,6 @@
 <?php
 
-namespace ImagicalGamer\BuidBattle;
+namespace ImagicalGamer\BuildBattle;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\plugin\Plugin;
