@@ -28,6 +28,9 @@ class Main extends PluginBase implements Listener{
   	if($event->getBlock()->getId() == 5){
   		$event->setCancelled(true);
   	}
+  	if($event->getBlock()->getId() == 44){
+  		$event->setCancelled(true);
+  	}
   }
   public function onCommand(CommandSender $s, Command $cmd, $label, array $args){
     if(strtolower($cmd->getName() == "bb")){
