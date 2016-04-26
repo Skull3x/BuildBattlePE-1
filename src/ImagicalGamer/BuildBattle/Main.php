@@ -112,6 +112,7 @@ class Main extends PluginBase implements Listener{
     }
     return true;
   }
+  
 }
 class Particles extends PluginTask {
 	public function __construct($plugin)
