@@ -61,6 +61,7 @@ class Main extends PluginBase implements Listener {
 		$config->save();
 		$this->getServer()->getScheduler()->scheduleRepeatingTask(new GameTask($this), 20);
 		$this->getServer()->getScheduler()->scheduleRepeatingTask(new RefreshSigns($this), 10);
+		$this->getServer()->getScheduler()->scheduleRepeatingTask(new ParticleSigns($this), 1);
 	}
 	public function onMove(PlayerMoveEvent $event)
 	{
@@ -469,5 +470,33 @@ class GameTask extends PluginTask {
 			}
 		}
 		$config->save();
+	}
+}
+class ParticleSigns extends PluginTask {
+  
+	public function __construct($plugin)
+	{
+		$this->plugin = $plugin;
+		parent::__construct($plugin);
+	}
+  
+	public function onRun($tick)
+	{
+		$tiles = $level->getTiles();
+		$heart = "[Heart]";
+		foreach($tiles as $t) {
+			if($t instanceof Sign) {	
+				$text = $t->getText();
+				$world = $text[1];
+				if($text[0]==$heart)
+				{
+	          			$x = $t->x;
+					$y = $t->y;
+					$z = $t->x;
+					$level->addParticle(new HeartParticle(new Vector3($x, $y, $z))); 
+					$level->setBlock(new Vector3($x,$y,$z), Block::get(0));
+				}
+			}
+		}
 	}
 }
