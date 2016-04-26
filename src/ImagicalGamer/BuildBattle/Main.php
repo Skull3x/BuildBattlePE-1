@@ -63,6 +63,14 @@ class Main extends PluginBase implements Listener {
 		$this->getServer()->getScheduler()->scheduleRepeatingTask(new RefreshSigns($this), 10);
 		$this->getServer()->getScheduler()->scheduleRepeatingTask(new ParticleSigns($this), 1);
 	}
+	public function getArenas(){
+		$config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
+		$arenas = $config->get("arenas");
+		foreach($arenas as $level){
+			//do nothing
+		}
+		return $level;
+	}
 	public function onMove(PlayerMoveEvent $event)
 	{
 		$player = $event->getPlayer();
@@ -482,6 +490,7 @@ class ParticleSigns extends PluginTask {
   
 	public function onRun($tick)
 	{
+		$level = $this->getArenas();
 		$tiles = $level->getTiles();
 		$heart = "[Heart]";
 		foreach($tiles as $t) {
