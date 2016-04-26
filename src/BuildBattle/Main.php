@@ -41,9 +41,9 @@ class Main extends PluginBase implements Listener{
   	 $theme = rand(1,2);
   	 switch($theme){
   	 	case 1:
-  	 		1 = "bunny";
+  	 		$bunny = "bunny";
   	 	case 2:
-  	 		2 = "Dog";
+  	 		$wolf = "Wolf";
   	 }
   	 return $theme;
   }
