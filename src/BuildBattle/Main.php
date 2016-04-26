@@ -21,26 +21,6 @@ class Main extends PluginBase implements Listener{
     $this->getLogger()->info(C::GREEN . "Enabled!");
   }
   
-<?php
-namespace ImagicalGamer\SwaggyHUD;
-use pocketmine\event\Listener;
-use pocketmine\plugin\PluginBase;
-use pocketmine\plugin\Plugin;
-use pocketmine\scheduler\PluginTask;
-use pocketmine\Server;
-use pocketmine\Player;
-use pocketmine\event\player\PlayerDeathEvent;
-use pocketmine\utils\TextFormat as C;
-use pocketmine\utils\Config;
-class Main extends PluginBase implements Listener{
-  public function onEnable(){
-    $this->saveDefaultConfig();
-    $config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
-    $format = $config->get("Format");
-    $this->getServer()->getPluginManager()->registerEvents($this, $this);
-    $this->getLogger()->info(C::GREEN . "Enabled!");
-    $this->getLogger()->notice(C::AQUA . "Message Format: " . $format);
-  }
   public function onCommand(CommandSender $s, Command $cmd, $label, array $args){
     if(strtolower($cmd->getName() == "bb")){
       if($s instanceof Player){
