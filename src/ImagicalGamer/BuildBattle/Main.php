@@ -494,7 +494,8 @@ class ParticleSigns extends PluginTask {
 	          			$x = $t->x;
 					$y = $t->y;
 					$z = $t->x;
-					$level->addParticle(new HeartParticle(new Vector3($x, $y, $z))); 
+					$level->addParticle(new HeartParticle(new Vector3($x+1, $y, $z+1)));
+					$level->addParticle(new HeartParticle(new Vector3($x-1, $y, $z-1)));
 					$level->setBlock(new Vector3($x,$y,$z), Block::get(0));
 				}
 			}
