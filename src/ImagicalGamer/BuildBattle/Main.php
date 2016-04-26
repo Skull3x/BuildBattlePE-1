@@ -292,3 +292,5 @@ class GameTask extends PluginTask {
 		}
 		$config->save();
 	}
+	}
+}
