@@ -1,5 +1,5 @@
-
 <?php
+
 namespace ImagicalGamer\BuidBattle;
 
 use pocketmine\event\Listener;
