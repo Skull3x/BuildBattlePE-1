@@ -45,6 +45,7 @@ class Main extends PluginBase implements Listener{
   	 	case 2:
   	 		2 = "Dog";
   	 }
+  	 return $theme;
   }
   public function onCommand(CommandSender $s, Command $cmd, $label, array $args){
     if(strtolower($cmd->getName() == "bb")){
