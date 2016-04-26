@@ -90,7 +90,7 @@ class Main extends PluginBase implements Listener{
 		          $this->getServer()->getLevelByName($world)->loadChunk($this->getServer()->getLevelByName($world)->getSafeSpawn()->getFloorX(), $this->getServer()->getLevelByName($world)->getSafeSpawn()->getFloorZ());
 		          $s->teleport($this->getServer()->getLevelByName($world)->getSafeSpawn());
 		          $this->spawn = 1;
-		          $s->sendMessage(C::BLUE."Preparing BuildBattlePE level!")
+		          $s->sendMessage(C::BLUE."Preparing BuildBattlePE level!");
               }else{
                 $s->sendMessage(C::RED."World not found!");
               }
