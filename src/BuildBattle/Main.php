@@ -37,6 +37,15 @@ class Main extends PluginBase implements Listener{
   		$event->setCancelled(true);
   	}
   }
+  public function getTheme(){
+  	 $theme = rand(1,2);
+  	 switch($theme){
+  	 	case 1:
+  	 		1 = "bunny";
+  	 	case 2:
+  	 		2 = "Dog";
+  	 }
+  }
   public function onCommand(CommandSender $s, Command $cmd, $label, array $args){
     if(strtolower($cmd->getName() == "bb")){
       if($s instanceof Player){
