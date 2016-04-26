@@ -34,10 +34,12 @@ class Main extends PluginBase implements Listener{
   }
   public function onBreak(BlockBreakEvent $event){
   	if($event->getBlock()->getId() == 5){
+  		$event->getPlayer()->sendMessage(C::YELLOW . C::BOLD . "You can't leave the arena!");
   		$event->setCancelled(true);
   	}
   	if($event->getBlock()->getId() == 44){
   		$event->setCancelled(true);
+  		$event->getPlayer()->sendMessage(C::YELLOW . C::BOLD . "You can't leave the arena!");
   	}
   }
   public function onChat(PlayerChatEvent $event){
@@ -47,6 +49,11 @@ class Main extends PluginBase implements Listener{
   public function onPlace(BlockPlaceEvent $event){
   	if($event->getBlock()->getId() == 10){
   		$event->setCancelled(true);
+  		$event->getPlayer()->sendMessage(C::RED . C::BOLD . "No Griefing!");
+  	}
+  	if($event->getBlock()->getId() == 46){
+  		$event->setCancelled(true);
+  		$event->getPlayer()->sendMessage(C::RED . C::BOLD . "No Griefing!");
   	}
   }
   public function getTheme(){
