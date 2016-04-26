@@ -7,3 +7,4 @@ BuildBattle plugin!
 - [ ] Voting  
 - [ ] World Reset
 - [ ] Winner system
+- [x] Particle System
