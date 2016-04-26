@@ -32,6 +32,17 @@ class Main extends PluginBase implements Listener{
     $this->getServer()->getScheduler()->scheduleRepeatingTask(new Particles($this), 1);
     $this->getServer()->getScheduler()->scheduleRepeatingTask(new GameTask($this), 20);
     $this->getLogger()->info(C::GREEN . "Enabled!");
+    @mkdir($this->getDataFolder());
+    		$config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
+		if($config->get("arenas")!=null)
+		{
+			$this->arenas = $config->get("arenas");
+		}
+		foreach($this->arenas as $lev)
+		{
+			$this->getServer()->loadLevel($lev);
+		}
+		$config->save();
   }
   public function onBreak(BlockBreakEvent $event){
   	if($event->getBlock()->getId() == 5){
