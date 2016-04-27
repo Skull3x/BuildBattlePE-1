@@ -325,11 +325,15 @@ class GameTask extends PluginTask {
 									$config->set($arena . "StartTime", $wait);
 								}
 								if($wait <= 0){
+									$input = array("Santa", "Forest", "Summer", "Sun", "TV");
+                                                                                $theme = array_rand($input);
 									foreach($players as $p){
 										$level = $p->getLevel();
 										$level->addSound(new TNTPrimeSound($p));
+										$p->setGamemode(1);
                                                                         	$p->sendMessage("§b-------------------------------§r");
-                                                                        	$p->sendMessage($this->prefix . C::GRAY . "Start" . C::RED . C::BOLD . " Building!");
+                                                                        	$p->sendMessage(C::GRAY."Start" . C::RED . C::BOLD . " Building!");
+                                                                        	$p->sendMessage(C::GRAY."Theme: ".$theme);
                                                                         	$p->sendMessage("§b-------------------------------§r");
 									}
 								}
