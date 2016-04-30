@@ -73,11 +73,11 @@ class Main extends PluginBase implements Listener {
 			$sofar = $config->get($level . "StartTime");
 			if($sofar > 0)
 			{
-				$to = clone $event->getFrom();
-				$to->yaw = $event->getTo()->yaw;
-				$to->pitch = $event->getTo()->pitch;
-				$event->setTo($to);
-			}
+				$f = $event->getFrom();
+                                $t = $event->getTo();
+                                if($f->x != $t->x or $f->y != $t->x or $f->z != $t->z){
+                                   $event->setCancelled();
+                       }
 		}
 	}	
   public function onBreak(BlockBreakEvent $event){
