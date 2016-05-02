@@ -79,6 +79,7 @@ class Main extends PluginBase implements Listener {
                                    $event->setCancelled();
                        }
 		}
+		}
 	}	
   public function onBreak(BlockBreakEvent $event){
   	if($event->getBlock()->getId() == 5){
