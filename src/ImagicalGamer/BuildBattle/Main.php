@@ -75,7 +75,7 @@ class Main extends PluginBase implements Listener {
 			{
 				$f = $event->getFrom();
                                 $t = $event->getTo();
-                                if($f->x != $t->x or $f->y != $t->x or $f->z != $t->z){
+                                if($f->x != $t->x or $f->y != $ t->x or $f->z != $t->z){
                                    $event->setCancelled();
                        }
 		}
