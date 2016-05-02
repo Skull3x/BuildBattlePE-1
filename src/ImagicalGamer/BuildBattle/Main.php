@@ -248,7 +248,7 @@ class Main extends PluginBase implements Listener {
 		$config->set("arenas",$this->arenas);
 		foreach($this->arenas as $arena)
 		{
-			$config->set($arena . "PlayTime", 780);
+			$config->set($arena . "PlayTime", 300);
 			$config->set($arena . "StartTime", 60);
 			$config->set($arena . "VoteTime", 120);
 		}
@@ -318,7 +318,7 @@ class GameTask extends PluginTask {
 				if($level instanceof Level){
 					$players = $level->getPlayers();
 					if(count($players) == 0){
-						$config->set($arena . "PlayTime", 780);
+						$config->set($arena . "PlayTime", 300);
 						$config->set($arena . "StartTime", 60);
 						$config->get($arena . "VoteTime", 120);
 					}else{
