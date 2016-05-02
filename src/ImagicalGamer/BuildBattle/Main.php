@@ -63,6 +63,13 @@ class Main extends PluginBase implements Listener {
 		$this->getServer()->getScheduler()->scheduleRepeatingTask(new RefreshSigns($this), 10);
 		$this->getServer()->getScheduler()->scheduleRepeatingTask(new ParticleSigns($this), 1);
 	}
+	public function getTheme(){
+		$config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
+                $themes = $config->get("themes");
+                $theme = array_rand($themes);
+                return $theme;
+
+	}
 	public function onMove(PlayerMoveEvent $event)
 	{
 		$player = $event->getPlayer();
