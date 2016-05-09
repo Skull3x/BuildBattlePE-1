@@ -340,6 +340,33 @@ class GameTask extends PluginTask {
                                                                         	$p->sendMessage($this->prefix . C::GRAY . "Start" . C::RED . C::BOLD . " Building!");
                                                                         	$p->sendMessage("§b-------------------------------§r");
 									}
+									$config->set($arena . "StartTime", 60);
+								}
+							}else{
+								$aop = count($level->getPlayers());
+								if($aop === 1){
+									foreach($players as $p){
+										$spawn = $this->plugin->getServer()->getDefaultLevel()->getSafeSpawn();
+										$this->plugin->getServer()->getDefaultLevel()->loadChunk($spawn->getX(), $spawn->getZ());
+										$p->teleport($spawn,0,0);
+										$p->sendMessage(C::RED."There Wasn't Enough Players!");
+									}
+									$config->set($arena . "PlayTime", 300);
+									$config->set($arena . "StartTime", 60);
+								}
+								$time--;
+								foreach($players as $p){
+									$p->sendPopup(C::YELLOW . C::BOLD . "> Ending in " . $time . " Seconds  <");
+									$level = $p->getLevel();
+									$config->set($arena . "PlayTime", $time);
+									$min = $time / 60;
+									if($time === 300 || $time === 240 || $time === 180 || $time === 120 || $time === 60){
+										$p->sendMessage(C::DARK_AQUA."You Have ".C::YELLOW."$min".C::DARK_AQUA." Minutes Left Until You Vote!");
+									}
+									if($time <= 0){
+										// To Be Continued...
+										// - Taki21
+									}
 								}
 							}
 						}
