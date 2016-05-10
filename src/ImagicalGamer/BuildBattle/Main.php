@@ -189,7 +189,7 @@ class Main extends PluginBase implements Listener {
 						$config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
 						$level = $this->getServer()->getLevelByName($text[2]);
 						$aop = count($level->getPlayers());
-						$thespawn = $config->get($text[2] . "Spawn" . ($aop+1));
+						$thespawn = $config->get($text[2] . "Lobby");
 						$spawn = new Position($thespawn[0]+0.5,$thespawn[1],$thespawn[2]+0.5,$level);
 						$level->loadChunk($spawn->getFloorX(), $spawn->getFloorZ());
 						$player->teleport($spawn,0,0);
@@ -198,12 +198,12 @@ class Main extends PluginBase implements Listener {
 						$player->getInventory()->clearAll();
 						$player->setNameTagVisible(false);
 						$player->setGamemode(1);
-                        $player->sendMessage($this->prefix . "You have Joined a battle!");	
+                                                $player->sendMessage($this->prefix . "You have Joined a battle!");	
 						$levelplayers = $level->getPlayers();
 						if($levelplayers==5){
 							   $spawn1 = $this->getServer()->getDefaultLevel()->getSafeSpawn(); 
-                               $this->getServer()->getDefaultLevel()->loadChunk($spawn1->getFloorX(), 
-                               $spawn1->getFloorZ()); $player->teleport($spawn1,0,0);
+                                                           $this->getServer()->getDefaultLevel()->loadChunk($spawn1->getFloorX(), 
+                                                           $spawn1->getFloorZ()); $player->teleport($spawn1,0,0);
 							   $player->sendMessage($this->prefix . "The battle is full!");
 						}
 					}
@@ -230,6 +230,7 @@ class Main extends PluginBase implements Listener {
 		else if($this->mode==11)
 		{
 			$config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
+			$config->set($this->currentLevel . "Lobby" . $this->mode, array($block->getX(),$block->getY()+1,$block->getZ()));
 			$level = $this->getServer()->getLevelByName($this->currentLevel);
 			$level->setSpawn = (new Vector3($block->getX(),$block->getY()+1,$block->getZ()));
 			$config->set("arenas",$this->arenas);
