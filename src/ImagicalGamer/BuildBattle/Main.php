@@ -224,13 +224,13 @@ class Main extends PluginBase implements Listener {
 			if($this->mode==11)
 			{
 				$player->sendMessage($this->prefix . "Now tap on a lobby spawn.");
+				$config->set($this->currentLevel . "Lobby" , array($block->getX(),$block->getY()+1,$block->getZ()));
 			}
 			$config->save();
 		}
 		else if($this->mode==11)
 		{
 			$config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
-			$config->set($this->currentLevel . "Lobby" . $this->mode, array($block->getX(),$block->getY()+1,$block->getZ()));
 			$level = $this->getServer()->getLevelByName($this->currentLevel);
 			$level->setSpawn = (new Vector3($block->getX(),$block->getY()+1,$block->getZ()));
 			$config->set("arenas",$this->arenas);
