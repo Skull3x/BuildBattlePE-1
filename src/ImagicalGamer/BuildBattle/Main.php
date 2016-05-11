@@ -36,7 +36,7 @@ use pocketmine\event\entity\EntityDamageByEntityEvent;
 
 class Main extends PluginBase implements Listener {
 	
-    public $prefix = C::YELLOW . C::BOLD . "[BuildBattle] " . C::RESET . C::WHITE;
+        public $prefix = C::YELLOW . C::BOLD . "[BuildBattle] " . C::RESET . C::WHITE;
 	public $mode = 0;
 	public $arenas = array();
 	public $currentLevel = "";
@@ -301,6 +301,7 @@ class RefreshSigns extends PluginTask {
 class GameTask extends PluginTask {
 	
     public $prefix = C::YELLOW . C::BOLD . "[BuildBattle] " . C::RESET . C::WHITE;
+    public $vote = 0;
     
 	public function __construct($plugin){
 		$this->plugin = $plugin;
@@ -365,8 +366,15 @@ class GameTask extends PluginTask {
 										$p->sendMessage(C::DARK_AQUA."You Have ".C::YELLOW."$min".C::DARK_AQUA." Minutes Left Until You Vote!");
 									}
 									if($time <= 0){
-										// To Be Continued...
-										// - Taki21
+										$this->vote = 1;
+										if($this->vote==1){	
+									           $thespawn = $config->get($levelArena . "Spawn" . ("1");$thespawn = $config->get($text[2] . "Spawn" . ($aop+1));
+						                                   $spawn = new Position($thespawn[0]+0.5,$thespawn[1],$thespawn[2]+0.5,$level);
+					                                       	   $level->loadChunk($spawn->getFloorX(), $spawn->getFloorZ());
+											foreach($levelArena->getPlayers() as $p){
+												$p->teleport($spawn);
+											}  
+										}
 									}
 								}
 							}
