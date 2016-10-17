@@ -301,6 +301,10 @@ class GameTask extends PluginTask {
 	public function onRun($tick){
 		$config = new Config($this->getDataFolder()."/config.yml");
 		$arenas = $config->get("arenas");
+                    $this->vote = no;
+		$this->votingtime=0;
+		  if($this->vote=yes) {
+		$this->votingtime++;
 		if(!empty($arenas)){
 			foreach($arenas as $arena){
 				$time = $config->get($arena . "PlayTime");
@@ -309,6 +313,47 @@ class GameTask extends PluginTask {
 				$level = $this->plugin->getServer()->getLevelByName($arena);
 				if($level instanceof Level){
 					$players = $level->getPlayers();
+					if($config->get($arena . "PlayTime")!=780)
+					{
+						foreach($players as $p){
+					$p->sendPopup("Building Time {$time}");
+					}
+					}
+					if(!$this->votingtime=0){
+						foreach($players as $p){
+					switch($this->votingtime){
+						case "15":
+							$p->sendMessage("Voting for Player 1");
+							break;
+						case "30":
+							$p->sendMessage("Voting for Player 2");
+							break;
+						case "45":
+							$p->sendMessage("Voting for Player 3");
+							break;
+						case "60":
+							$p->sendMessage("Voting for Player 4");
+							break;
+						case "75":
+							$p->sendMessage("Voting for Player 5");
+							break;
+						case "90":
+							$p->sendMessage("Voting for Player 6");
+							break;
+						case "105"
+							$p->sendMessage("Voting for Player 7");
+							break;
+						case "120"
+							$p->sendMessage("Voting for Player 8");
+							break;
+									
+					}	
+						}
+					}
+					if($time <=0 ){
+					$p->sendMessage("Building time is over.Time to vote");	
+				        $this->vote=yes;
+					}
 					if(count($players) == 0){
 						$config->set($arena . "PlayTime", 780);
 						$config->set($arena . "StartTime", 60);
@@ -320,6 +365,7 @@ class GameTask extends PluginTask {
 								$wait--;
 								foreach($players as $p){
 									$p->sendPopup(C::YELLOW . C::BOLD . "Starting in " . $wait . " Seconds");
+									$p->sendMessage(C::YELLOW . C::BOLD . "Please vote on a theme");
 									$level = $p->getLevel();
 									$level->addSound(new PopSound($p));
 									$config->set($arena . "StartTime", $wait);
