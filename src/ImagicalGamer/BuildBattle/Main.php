@@ -71,6 +71,11 @@ class Main extends PluginBase implements Listener {
 		{
 			$config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
 			$sofar = $config->get($level . "StartTime");
+			if($player->y >= $config->get($level . "HeightLimit"))
+			{
+				$event->setCancelled(true);
+				$player->sendMessage(C::RED . "You cannot leave your Build Plot");
+			}
 			if($sofar > 0)
 			{
 				$to = clone $event->getFrom();
