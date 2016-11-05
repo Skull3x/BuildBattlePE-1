@@ -76,6 +76,11 @@ class Main extends PluginBase implements Listener {
 		$level = $player->getLevel()->getFolderName();
 		if(in_array($level,$this->arenas))
 		{
+			if($player->y >= $config->get($level . "HeightLimit"))
+ +			{
+ +				$event->setCancelled(true);
+ +				$player->sendMessage(C::RED . "You cannot leave your Build Plot");
+ +			}
 			$config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
 			$sofar = $config->get($level . "StartTime");
 			if($sofar > 0)
