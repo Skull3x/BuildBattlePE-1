@@ -71,28 +71,6 @@ class Main extends PluginBase implements Listener {
 
 	}
 	
-	public function onMov(PlayerMoveEvent $event)
-	{
-		$player = $event->getPlayer();
-		$level = $player->getLevel()->getFolderName();
-		if(in_array($level,$this->arenas))
-		{
-                    $limit = new Config($this->getDataFolder() . "/limit.yml", Config::YAML);
-                    $config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
-                    if($config->get($level . "PlayTime") < 470 && $config->get($level . "PlayTime") > 170)
-                    {
-                        if($limit->get($player->getName()) != null)
-                        {
-                            $pos = $limit->get($player->getName());
-                            if($player->x>$pos[0]+13.5 || $player->x<$pos[0]-13.5 || $player->y>$pos[1]+20 || $player->y<$pos[1]-1 || $player->z>$pos[2]+13.5 || $player->z<$pos[2]-13.5)
-                            {
-                                $event->setCancelled();
-                            }
-                        }
-                    }
-		}
-	}
-	
 	public function onMove(PlayerMoveEvent $event)
 	{
 		$player = $event->getPlayer();
