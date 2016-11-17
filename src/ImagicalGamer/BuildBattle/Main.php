@@ -70,12 +70,46 @@ class Main extends PluginBase implements Listener {
                 return $theme;
 
 	}
+	
+	public function onMov(PlayerMoveEvent $event)
+	{
+		$player = $event->getPlayer();
+		$level = $player->getLevel()->getFolderName();
+		if(in_array($level,$this->arenas))
+		{
+                    $limit = new Config($this->getDataFolder() . "/limit.yml", Config::YAML);
+                    $config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
+                    if($config->get($level . "PlayTime") < 470 && $config->get($level . "PlayTime") > 170)
+                    {
+                        if($limit->get($player->getName()) != null)
+                        {
+                            $pos = $limit->get($player->getName());
+                            if($player->x>$pos[0]+13.5 || $player->x<$pos[0]-13.5 || $player->y>$pos[1]+20 || $player->y<$pos[1]-1 || $player->z>$pos[2]+13.5 || $player->z<$pos[2]-13.5)
+                            {
+                                $event->setCancelled();
+                            }
+                        }
+                    }
+		}
+	}
+	
 	public function onMove(PlayerMoveEvent $event)
 	{
 		$player = $event->getPlayer();
 		$level = $player->getLevel()->getFolderName();
 		if(in_array($level,$this->arenas))
 		{
+			$limit = new Config($this->getDataFolder() . "/limit.yml", Config::YAML);
+			$config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
+			if($config->get($level . "PlayTime") < 470 && $config->get($level . "PlayTime") > 170)
+			{
+				if($limit->get($player->getName()) != null)
+				{
+					$pos = $limit->get($player->getName());
+					if($player->x>$pos[0]+13.5 || $player->x<$pos[0]-13.5 || $player->y>$pos[1]+20 || $player->y<$pos[1]-1 || $player->z>$pos[2]+13.5 || $player->z<$pos[2]-13.5)
+						$event->setCancelled();
+				}
+			}
 			if($player->y >= $config->get($level . "HeightLimit"))
  +			{
  +				$event->setCancelled(true);
@@ -92,17 +126,68 @@ class Main extends PluginBase implements Listener {
                        }
 		}
 		}
-	}	
-  public function onBreak(BlockBreakEvent $event){
-  	if($event->getBlock()->getId() == 5){
-  		$event->getPlayer()->sendMessage(C::YELLOW . C::BOLD . "You can't leave the arena!");
-  		$event->setCancelled(true);
-  	}
-  	if($event->getBlock()->getId() == 44){
-  		$event->setCancelled(true);
-  		$event->getPlayer()->sendMessage(C::YELLOW . C::BOLD . "You can't leave the arena!");
-  	}
-  }
+	}
+	
+	public function onBlockBreak(BlockBreakEvent $event)
+	{
+		$player = $event->getPlayer();
+                $block = $event->getBlock();
+		$level = $player->getLevel()->getFolderName();
+		if(in_array($level,$this->arenas))
+		{
+                    $limit = new Config($this->getDataFolder() . "/limit.yml", Config::YAML);
+                    $config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
+                    if($config->get($level . "PlayTime") != null)
+                    {
+                            if($config->get($level . "PlayTime") >= 470)
+                            {
+                                    $event->setCancelled();
+                            }
+                    }
+                    if($limit->get($player->getName()) != null)
+                    {
+                        $pos = $limit->get($player->getName());
+                        if($block->getX()>$pos[0]+13.5 || $block->getX()<$pos[0]-13.5 || $block->getY()>$pos[1]+20 || $block->getY()<$pos[1]-1 || $block->getZ()>$pos[2]+13.5 || $block->getZ()<$pos[2]-13.5)
+                        {
+                            $event->setCancelled();
+                        }
+                    }
+		}
+	}
+	
+	public function onBlockPlace(BlockPlaceEvent $event)
+	{
+		$player = $event->getPlayer();
+                $block = $event->getBlock();
+		$level = $player->getLevel()->getFolderName();
+		if(in_array($level,$this->arenas))
+		{
+                    $limit = new Config($this->getDataFolder() . "/limit.yml", Config::YAML);
+                    $config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
+                    if($config->get($level . "PlayTime") != null)
+                    {
+                            if($config->get($level . "PlayTime") >= 470)
+                            {
+                                    $event->setCancelled();
+                            }
+                    }
+                    if($limit->get($player->getName()) != null)
+                    {
+                        $pos = $limit->get($player->getName());
+                        if($block->getX()>$pos[0]+13.5 || $block->getX()<$pos[0]-13.5 || $block->getY()>$pos[1]+20 || $block->getY()<$pos[1]-1 || $block->getZ()>$pos[2]+13.5 || $block->getZ()<$pos[2]-13.5)
+                        {
+                            $event->setCancelled();
+                        }
+                    }
+		}
+	}
+	
+	public function PlayerInteractEvent(PlayerInteractEvent $ev){
+            $item = $ev->getItem();
+            if($item->getId() === Item::SPAWN_EGG){
+                $ev->setCancelled();
+            }
+        }
 	
   public function onPlace(BlockPlaceEvent $event){
   	if($event->getBlock()->getId() == 10){
